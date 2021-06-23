@@ -1,0 +1,23 @@
+{
+  "name": "jarivas/http-client",
+  "description": "An easy way to handle communications on php",
+  "type": "library",
+  "license": "GNU3",
+  "authors": [
+    {
+      "name": "Jose A Rivas",
+      "email": "me@jarivas.work"
+    }
+  ],
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {"HttpClient\\": "src/"}
+  },
+  "autoload-dev": {
+    "psr-4": { "HttpClient\\Tests\\": "tests/unit/" }
+  },
+  "require": {
+    "ext-curl": "*",
+    "ext-json": "*"
+  }
+}
