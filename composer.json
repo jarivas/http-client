@@ -2,7 +2,7 @@
   "name": "jarivas/http-client",
   "description": "An easy way to handle communications on php",
   "type": "library",
-  "license": "GNU3",
+  "license": "AGPL-3.0-only",
   "authors": [
     {
       "name": "Jose A Rivas",
