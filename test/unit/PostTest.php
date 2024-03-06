@@ -11,9 +11,9 @@ class PostTest extends TestCase {
 
     public function testMethod(): void
     {
-        $client = new Post('localhost:8080');
+        $client = new Post('localhost:18080');
 
-        $response = $client->sendJson(null, null, null);
+        $response = $client->sendJson(null, null);
 
         $this->assertTrue($response['success']);
 
@@ -24,9 +24,9 @@ class PostTest extends TestCase {
 
     public function testParams(): void
     {
-        $client = new Post('localhost:8080?param1=hello');
+        $client = new Post('localhost:18080?param1=hello');
 
-        $response = $client->sendJson(null, null, null);
+        $response = $client->sendJson(null, null);
 
         $response = $response['result'];
 
@@ -39,9 +39,9 @@ class PostTest extends TestCase {
 
     public function testForm(): void
     {
-        $client = new Post('localhost:8080');
+        $client = new Post('localhost:18080');
 
-        $response = $client->sendForm(null, ['param1' => 'hello'], null);
+        $response = $client->sendForm(null, ['param1' => 'hello']);
 
         $response = json_decode($response['result'], true);
 
@@ -54,9 +54,9 @@ class PostTest extends TestCase {
 
     public function testJson(): void
     {
-        $client = new Post('localhost:8080');
+        $client = new Post('localhost:18080');
 
-        $response = $client->sendJson(null, ['param1' => 'hello'], null);
+        $response = $client->sendJson(null, ['param1' => 'hello']);
 
         $response = $response['result'];
 

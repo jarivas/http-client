@@ -11,7 +11,7 @@ class GetTest extends TestCase {
 
     public function testMethod(): void
     {
-        $client = new Get('localhost:8080');
+        $client = new Get('localhost:18080');
 
         $response = $client->send(null, null, true);
 
@@ -24,7 +24,7 @@ class GetTest extends TestCase {
 
     public function testParams(): void
     {
-        $client = new Get('localhost:8080?param1=hello');
+        $client = new Get('localhost:18080?param1=hello');
 
         $response = $client->send(null, null, true);
 

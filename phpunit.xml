@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="test/bootstrap.php" colors="true">
+    <testsuites>
+        <testsuite name="Http Client Test Suite">
+            <file>test/unit/GetTest.php</file>
+            <file>test/unit/PostTest.php</file>
+            <file>test/unit/DeleteTest.php</file>
+            <file>test/unit/PutTest.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>

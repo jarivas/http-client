@@ -14,8 +14,10 @@ class Post
         curl_setopt($this->handler, CURLOPT_POST, 1);
     }
 
-    public function sendForm(?string $path = null, ?array $form = null, ?array $headers = null): array
+    public function sendForm(?string $path = null, ?array $form = null, array $headers = []): array
     {
+        array_push($headers, 'Content-Type: application/x-www-form-urlencoded');
+
         curl_setopt($this->handler, CURLOPT_URL, $this->getUrlPath($path));
 
         if ($form) {
@@ -25,8 +27,10 @@ class Post
         return $this->exec($headers);
     }
 
-    public function sendJson(?string $path = null, ?array $body = null, ?array $headers = null): array
+    public function sendJson(?string $path = null, ?array $body = null, array $headers = []): array
     {
+        array_push($headers, 'Content-Type: application/json');
+
         curl_setopt($this->handler, CURLOPT_URL, $this->getUrlPath($path));
 
         if ($body) {
