@@ -61,9 +61,13 @@ trait Client
         return ['success' => true, 'result' => $json];
     }
 
-    protected function getUrlParams(?array $params = null): string
+    protected function getUrlParams(?string $path = null, ?array $params = null): string
     {
         $result = $this->url;
+
+        if ($path) {
+            $result .= $path;
+        }
 
         if ($params) {
             $result .= '?' . http_build_query($params);

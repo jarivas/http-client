@@ -24,9 +24,9 @@ class Get
      * @param bool $jsonResponse default false
      * @return array [success, result]
      */
-    public function send(?array $params = null, ?array $headers = null, bool $jsonResponse = false): array
+    public function send(?string $path = null, ?array $params = null, ?array $headers = null, bool $jsonResponse = false): array
     {
-        curl_setopt($this->handler, CURLOPT_URL, $this->getUrlParams($params));
+        curl_setopt($this->handler, CURLOPT_URL, $this->getUrlParams($path, $params));
 
         return self::exec($headers, $jsonResponse);
     }

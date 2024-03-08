@@ -13,7 +13,7 @@ class DeleteTest extends TestCase {
     {
         $client = new Delete('localhost:18080');
 
-        $response = $client->send(null, null, true);
+        $response = $client->send('', null, null, true);
 
         $this->assertTrue($response['success']);
 
@@ -26,7 +26,7 @@ class DeleteTest extends TestCase {
     {
         $client = new Delete('localhost:18080?param1=hello');
 
-        $response = $client->send(null, null, true);
+        $response = $client->send('', null, null, true);
 
         $this->assertTrue($response['success']);
 
