@@ -16,12 +16,16 @@ class Post
 
     public function sendForm(?string $path = null, ?array $form = null, array $headers = []): array
     {
-        array_push($headers, 'Content-Type: application/x-www-form-urlencoded');
+        $headers[] = 'Content-Type: application/x-www-form-urlencoded';
 
         curl_setopt($this->handler, CURLOPT_URL, $this->getUrlPath($path));
 
         if ($form) {
+            $query =  http_build_query($form);
+
             curl_setopt($this->handler, CURLOPT_POSTFIELDS, http_build_query($form));
+
+            $this->log($query);
         }
 
         return $this->exec($headers);
@@ -29,12 +33,16 @@ class Post
 
     public function sendJson(?string $path = null, ?array $body = null, array $headers = []): array
     {
-        array_push($headers, 'Content-Type: application/json');
+        $headers[] = 'Content-Type: application/json';
 
         curl_setopt($this->handler, CURLOPT_URL, $this->getUrlPath($path));
 
         if ($body) {
-            curl_setopt($this->handler, CURLOPT_POSTFIELDS, json_encode($body));
+            $json = json_encode($body);
+
+            curl_setopt($this->handler, CURLOPT_POSTFIELDS, $json);
+
+            $this->log($json);
         }
 
         return $this->exec($headers, true);

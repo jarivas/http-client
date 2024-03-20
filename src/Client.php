@@ -2,16 +2,23 @@
 
 namespace HttpClient;
 
+use Psr\Log\LoggerInterface;
+use CurlHandle;
+use resource;
 
 trait Client
 {
-    protected $handler;
-    protected $url;
+    protected bool|CurlHandle|resource $handler;
+    protected string $url;
+    protected string $instanceId;
+    protected LoggerInterface $logger;
 
-    public function initConnector(string $url)
+    public function initConnector(string $url, LoggerInterface|null $logger = null)
     {
         $this->handler = curl_init();
         $this->url = $url;
+        $this->instanceId = uniqid();
+        $this->logger = (is_null($logger)) ? new Logger() : $logger;
         
         curl_setopt($this->handler, CURLOPT_RETURNTRANSFER, true);
     }
@@ -25,15 +32,28 @@ trait Client
     {
         if ($headers) {
             curl_setopt($this->handler, CURLOPT_HTTPHEADER, $headers);
+        
+            $this->log($headers);
         }
 
         $response = curl_exec($this->handler);
+
+        $this->log($response);
 
         if (curl_errno($this->handler)) {
             return self::error(curl_error($this->handler));
         }
 
         return ($jsonResponse) ? self::parseJson($response) : self::success($response);
+    }
+
+    protected function log(string|array $message): void
+    {
+        if (is_array($message)) {
+            $message = json_encode($message);
+        }
+
+        $this->logger->info("{$this->instanceId} :: {$message}");
     }
 
     protected static function success(string $response): array
@@ -48,8 +68,8 @@ trait Client
 
     protected static function parseJson(string $response): array
     {
-        if (!strlen($response)) {
-            return self::error('Empty response');
+        if (empty($response)) {
+            return [];
         }
 
         $json = json_decode($response, true);
@@ -73,6 +93,8 @@ trait Client
             $result .= '?' . http_build_query($params);
         }
 
+        $this->log($result);
+
         return $result;
     }
 
@@ -83,6 +105,8 @@ trait Client
         if ($path) {
             $result .= $path;
         }
+
+        $this->log($result);
 
         return $result;
     }
