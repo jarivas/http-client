@@ -23,6 +23,13 @@ trait Client
         curl_setopt($this->handler, CURLOPT_RETURNTRANSFER, true);
     }
 
+    public function sslCertificates(string $sslCertPath, string $sslKeyPath): void
+    {
+        curl_setopt($this->handler, CURLOPT_SSLCERT, $sslCertPath);
+        curl_setopt($this->handler, CURLOPT_SSLKEY, $sslKeyPath);
+        curl_setopt($this->handler, CURLOPT_SSL_VERIFYPEER, 1);
+    }
+
     public function __destruct()
     {
         curl_close($this->handler);

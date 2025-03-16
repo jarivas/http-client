@@ -1,6 +1,7 @@
 {
   "name": "jarivas/http-client",
   "description": "An easy way to handle communications on php",
+  "version": "1.4.0",
   "type": "library",
   "license": "AGPL-3.0-only",
   "authors": [
